@@ -25,7 +25,7 @@ class SecureSerializer:
         self._key = key
         self._cert = cert
         self._cert_store = cert_store
-        self._digest = get_digest_algorithm(digest)
+        self._digest = get_digest_algorithm(digest, log=True)
         self._serializer = serializer
 
     def serialize(self, data):
