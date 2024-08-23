@@ -271,3 +271,10 @@ def raise_with_context(exc):
     elif exc_info[1] is exc:
         raise
     raise exc from exc_info[1]
+
+def dump_message(message):
+    if message is None:
+        return 'No messages in queue. basic.publish something.'
+    return {'body': message.body,
+            'properties': message.properties,
+            'delivery_info': message.delivery_info}
