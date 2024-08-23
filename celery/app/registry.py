@@ -59,10 +59,7 @@ class TaskRegistry(dict):
 
 
 def _unpickle_task(name):
-    return get_current_app().tasks[name]
-
-
-def _unpickle_task_v2(name, module=None):
     if module:
         import_module(module)
     return get_current_app().tasks[name]
+    

@@ -1,6 +1,6 @@
 import pytest
 
-from celery.app.registry import _unpickle_task, _unpickle_task_v2
+from celery.app.registry import _unpickle_task
 from celery.exceptions import InvalidTaskError
 
 
@@ -11,14 +11,12 @@ def returns():
 @pytest.mark.usefixtures('depends_on_current_app')
 class test_unpickle_task:
 
-    def test_unpickle_v1(self, app):
+    def test_unpickle(self, app):
         app.tasks['txfoo'] = 'bar'
         assert _unpickle_task('txfoo') == 'bar'
-
-    def test_unpickle_v2(self, app):
         app.tasks['txfoo1'] = 'bar1'
-        assert _unpickle_task_v2('txfoo1') == 'bar1'
-        assert _unpickle_task_v2('txfoo1', module='celery') == 'bar1'
+        assert _unpickle_task('txfoo1') == 'bar1'
+        assert _unpickle_task('txfoo1', module='celery') == 'bar1'
 
 
 class test_TaskRegistry:

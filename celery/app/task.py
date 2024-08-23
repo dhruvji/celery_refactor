@@ -19,7 +19,7 @@ from celery.utils.nodenames import gethostname
 from celery.utils.serialization import raise_with_context
 
 from .annotations import resolve_all as resolve_all_annotations
-from .registry import _unpickle_task_v2
+from .registry import _unpickle_task
 from .utils import appstr
 
 __all__ = ('Context', 'Task')
@@ -421,7 +421,7 @@ class Task:
         # - it will work even if the task hasn't been registered.
         mod = type(self).__module__
         mod = mod if mod and mod in sys.modules else None
-        return (_unpickle_task_v2, (self.name, mod), None)
+        return (_unpickle_task, (self.name, mod), None)
 
     def run(self, *args, **kwargs):
         """The body of the task executed by workers."""
