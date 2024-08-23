@@ -3,7 +3,7 @@ import inspect
 from importlib import import_module
 
 from celery._state import get_current_app
-from celery.app.autoretry import add_autoretry_behaviour
+from celery.app.retry import add_autoretry_behaviour
 from celery.exceptions import InvalidTaskError, NotRegistered
 
 __all__ = ('TaskRegistry',)

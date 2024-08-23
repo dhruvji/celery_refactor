@@ -1,11 +1,11 @@
 ===================================
- ``celery.app.autoretry``
+ ``celery.app.retry``
 ===================================
 
 .. contents::
     :local:
-.. currentmodule:: celery.app.autoretry
+.. currentmodule:: celery.app.retry
 
-.. automodule:: celery.app.autoretry
+.. automodule:: celery.app.retry
     :members:
     :undoc-members:

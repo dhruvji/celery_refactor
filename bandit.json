@@ -86,7 +86,7 @@
       "loc": 39,
       "nosec": 0
     },
-    "celery/app/autoretry.py": {
+    "celery/app/retry.py": {
       "CONFIDENCE.HIGH": 0.0,
       "CONFIDENCE.LOW": 0.0,
       "CONFIDENCE.MEDIUM": 0.0,
@@ -2473,3 +2473,4 @@
       "test_name": "blacklist"
     }
   ]
+}

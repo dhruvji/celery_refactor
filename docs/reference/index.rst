@@ -23,7 +23,7 @@
     celery.app.events
     celery.app.log
     celery.app.utils
-    celery.app.autoretry
+    celery.app.retry
     celery.bootsteps
     celery.result
     celery.schedules
