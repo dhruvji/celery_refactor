@@ -12,7 +12,7 @@ from kombu.utils.functional import retry_over_time
 from celery import states
 from celery.exceptions import TimeoutError
 from celery.result import AsyncResult, ResultSet  # noqa
-from celery.utils.text import truncate
+from celery.utils.text import truncate_text
 from celery.utils.time import humanize_seconds as _humanize_seconds
 
 E_STILL_WAITING = 'Still waiting for {0}.  Trying again {when}: {exc!r}'
@@ -125,7 +125,7 @@ class ManagerMixin:
                 self.remark(
                     'Still waiting for {}/{}: [{}]: {!r}'.format(
                         len(r) - len(received), len(r),
-                        truncate(', '.join(waiting_for)), exc), '!',
+                        truncate_text(', '.join(waiting_for)), exc), '!',
                 )
             except self.connerrors as exc:
                 self.remark(f'join: connection lost: {exc!r}', '!')

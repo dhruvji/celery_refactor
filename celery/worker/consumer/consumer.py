@@ -28,7 +28,7 @@ from celery.utils.functional import noop
 from celery.utils.log import get_logger
 from celery.utils.nodenames import gethostname
 from celery.utils.objects import Bunch
-from celery.utils.text import truncate
+from celery.utils.text import truncate_text
 from celery.utils.time import humanize_seconds, rate
 from celery.worker import loops
 from celery.worker.state import active_requests, maybe_shutdown, requests, reserved_requests, task_reserved
@@ -131,7 +131,7 @@ def dump_body(m, body):
     """Format message body for debugging purposes."""
     # v2 protocol does not deserialize body
     body = m.body if body is None else body
-    return '{} ({}b)'.format(truncate(safe_repr(body), 1024),
+    return '{} ({}b)'.format(truncate_text(safe_repr(body), 1024),
                              len(m.body))
 
 

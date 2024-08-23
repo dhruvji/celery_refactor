@@ -31,7 +31,7 @@ from celery.utils.functional import _regen
 from celery.utils.functional import chunks as _chunks
 from celery.utils.functional import is_list, maybe_list, regen, seq_concat_item, seq_concat_seq
 from celery.utils.objects import getitem_property
-from celery.utils.text import remove_repeating_from_task, truncate
+from celery.utils.text import remove_repeating_from_task, truncate_text
 
 __all__ = (
     'Signature', 'chain', 'xmap', 'xstarmap', 'chunks',
@@ -1405,7 +1405,7 @@ class xmap(_basemap):
 
     def __repr__(self):
         task, it = self._unpack_args(self.kwargs)
-        return f'[{task.task}(x) for x in {truncate(repr(it), 100)}]'
+        return f'[{task.task}(x) for x in {truncate_text(repr(it), 100)}]'
 
 
 @Signature.register_type()
@@ -1416,7 +1416,7 @@ class xstarmap(_basemap):
 
     def __repr__(self):
         task, it = self._unpack_args(self.kwargs)
-        return f'[{task.task}(*x) for x in {truncate(repr(it), 100)}]'
+        return f'[{task.task}(*x) for x in {truncate_text(repr(it), 100)}]'
 
 
 @Signature.register_type()

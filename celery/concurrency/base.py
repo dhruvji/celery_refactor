@@ -12,7 +12,7 @@ from kombu.utils.encoding import safe_repr
 from celery.exceptions import WorkerShutdown, WorkerTerminate, reraise
 from celery.utils import timer2
 from celery.utils.log import get_logger
-from celery.utils.text import truncate
+from celery.utils.text import truncate_text
 
 __all__ = ('BasePool', 'apply_target')
 
@@ -147,8 +147,8 @@ class BasePool:
         args = [] if not args else args
         if self._does_debug:
             logger.debug('TaskPool: Apply %s (args:%s kwargs:%s)',
-                         target, truncate(safe_repr(args), 1024),
-                         truncate(safe_repr(kwargs), 1024))
+                         target, truncate_text(safe_repr(args), 1024),
+                         truncate_text(safe_repr(kwargs), 1024))
 
         return self.on_apply(target, args, kwargs,
                              waitforslot=self.putlocks,

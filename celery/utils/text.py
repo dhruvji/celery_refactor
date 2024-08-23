@@ -13,7 +13,7 @@ __all__ = (
     'abbr', 'abbrtask', 'dedent', 'dedent_initial',
     'ensure_newlines', 'ensure_sep',
     'fill_paragraphs', 'indent', 'join',
-    'pluralize', 'pretty', 'str_to_list', 'simple_format', 'truncate',
+    'pluralize', 'pretty', 'str_to_list', 'simple_format', 'truncate_text',
 )
 
 UNKNOWN_SIMPLE_FORMAT_KEY = """
@@ -86,7 +86,7 @@ def indent(t: str, indent: int = 0, sep: str = '\n') -> str:
     return sep.join(' ' * indent + p for p in t.split(sep))
 
 
-def truncate(s: str, maxlen: int = 128, suffix: str = '...') -> str:
+def truncate_text(s: str, maxlen: int = 128, suffix: str = '...') -> str:
     """Truncate text to a maximum number of characters."""
     if maxlen and len(s) >= maxlen:
         return s[:maxlen].rsplit(' ', 1)[0] + suffix

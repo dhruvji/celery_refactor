@@ -17,7 +17,7 @@ from numbers import Number
 from pprint import _recursion
 from typing import Any, AnyStr, Callable, Dict, Iterator, List, Optional, Sequence, Set, Tuple  # noqa
 
-from .text import truncate
+from .text import truncate_text
 
 __all__ = ('saferepr', 'reprstream')
 
@@ -91,7 +91,6 @@ def _chaindict(mapping,
 
 
 def _chainlist(it, LIT_LIST_SEP=LIT_LIST_SEP):
-    # type: (List) -> Iterator[Any]
     size = len(it)
     for i, v in enumerate(it):
         yield v
@@ -143,7 +142,7 @@ def _format_chars(val, maxlen):
     if isinstance(val, bytes):  # pragma: no cover
         return _format_binary_bytes(val, maxlen)
     else:
-        return "'{}'".format(truncate(val, maxlen).replace("'", "\\'"))
+        return "'{}'".format(truncate_text(val, maxlen).replace("'", "\\'"))
 
 
 def _repr(obj):
@@ -172,7 +171,7 @@ def _saferepr(o, maxlen=None, maxlevels=3, seen=None):
         elif isinstance(token, _quoted):
             val = _format_chars(token.value, maxlen)
         else:
-            val = _safetext(truncate(token, maxlen))
+            val = _safetext(truncate_text(token, maxlen))
         yield val
         if maxlen is not None:
             maxlen -= len(val)

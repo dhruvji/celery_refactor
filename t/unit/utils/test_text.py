@@ -1,6 +1,6 @@
 import pytest
 
-from celery.utils.text import abbr, abbrtask, ensure_newlines, indent, pretty, truncate
+from celery.utils.text import abbr, abbrtask, ensure_newlines, indent, pretty, truncate_text
 
 RANDTEXT = """\
 The quick brown
@@ -55,7 +55,7 @@ class test_Info:
 
 ])
 def test_truncate_text(s, maxsize, expected):
-    assert truncate(s, maxsize) == expected
+    assert truncate_text(s, maxsize) == expected
 
 
 @pytest.mark.parametrize('args,expected', [
