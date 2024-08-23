@@ -9,6 +9,7 @@ from kombu.utils.functional import LRUCache, dictfilter, is_list, lazy, maybe_ev
 from vine import promise
 
 from celery.utils.log import get_logger
+from celery.utils.serialization import evaluate_promises
 
 logger = get_logger(__name__)
 

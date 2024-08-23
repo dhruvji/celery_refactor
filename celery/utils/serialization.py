@@ -7,6 +7,8 @@ from base64 import b64encode as base64encode
 from functools import partial
 from inspect import getmro
 from itertools import takewhile
+from vine import promise
+
 
 from kombu.utils.encoding import bytes_to_str, safe_repr, str_to_bytes
 
@@ -271,3 +273,10 @@ def raise_with_context(exc):
     elif exc_info[1] is exc:
         raise
     raise exc from exc_info[1]
+
+
+def evaluate_promises(it):
+    for value in it:
+        if isinstance(value, promise):
+            value = value()
+        yield value
