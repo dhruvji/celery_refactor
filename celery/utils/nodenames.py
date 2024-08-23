@@ -31,7 +31,7 @@ __all__ = (
     'nodesplit',
     'default_nodename',
     'node_format',
-    'host_format',
+    'format_host',
 )
 
 
@@ -83,7 +83,7 @@ def default_nodename(hostname: str) -> str:
 def node_format(s: str, name: str, **extra: dict) -> str:
     """Format worker node name (name@host.com)."""
     shortname, host = nodesplit(name)
-    return host_format(s, host, shortname or NODENAME_DEFAULT, p=name, **extra)
+    return format_host(s, host, shortname or NODENAME_DEFAULT, p=name, **extra)
 
 
 def _fmt_process_index(prefix: str = '', default: str = '0') -> str:
@@ -96,7 +96,7 @@ def _fmt_process_index(prefix: str = '', default: str = '0') -> str:
 _fmt_process_index_with_prefix = partial(_fmt_process_index, '-', '')
 
 
-def host_format(s: str, host: str | None = None, name: str | None = None, **extra: dict) -> str:
+def format_host(s: str, host: str | None = None, name: str | None = None, **extra: dict) -> str:
     """Format host %x abbreviations."""
     host = host or gethostname()
     hname, _, domain = host.partition('.')

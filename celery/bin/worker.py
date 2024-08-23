@@ -14,7 +14,7 @@ from celery.concurrency.base import BasePool
 from celery.exceptions import SecurityError
 from celery.platforms import EX_FAILURE, EX_OK, detached, maybe_drop_privileges
 from celery.utils.log import get_logger
-from celery.utils.nodenames import default_nodename, host_format, node_format
+from celery.utils.nodenames import default_nodename, format_host, node_format
 
 logger = get_logger(__name__)
 
@@ -69,7 +69,7 @@ class Hostname(StringParamType):
     name = "hostname"
 
     def convert(self, value, param, ctx):
-        return host_format(default_nodename(value))
+        return format_host(default_nodename(value))
 
 
 class Autoscale(ParamType):
@@ -137,7 +137,7 @@ def detach(path, argv, logfile=None, pidfile=None, uid=None,
                context_settings={'allow_extra_args': True})
 @click.option('-n',
               '--hostname',
-              default=host_format(default_nodename(None)),
+              default=format_host(default_nodename(None)),
               cls=CeleryOption,
               type=HOSTNAME,
               help_group="Worker Options",

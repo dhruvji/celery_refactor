@@ -13,7 +13,7 @@ from kombu.utils.encoding import from_utf8
 from kombu.utils.objects import cached_property
 
 from celery.platforms import IS_WINDOWS, Pidfile, signal_name
-from celery.utils.nodenames import gethostname, host_format, node_format, nodesplit
+from celery.utils.nodenames import gethostname, format_host, node_format, nodesplit
 from celery.utils.saferepr import saferepr
 
 __all__ = ('Cluster', 'Node')
@@ -28,12 +28,12 @@ def celery_exe(*args):
 def build_nodename(name, prefix, suffix):
     hostname = suffix
     if '@' in name:
-        nodename = host_format(name)
+        nodename = format_host(name)
         shortname, hostname = nodesplit(nodename)
         name = shortname
     else:
         shortname = f'{prefix}{name}'
-        nodename = host_format(
+        nodename = format_host(
             f'{shortname}@{hostname}',
         )
     return name, nodename, hostname
