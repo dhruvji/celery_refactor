@@ -19,7 +19,7 @@ from .defaults import _OLD_DEFAULTS, _OLD_SETTING_KEYS, _TO_NEW_KEY, _TO_OLD_KEY
 
 __all__ = (
     'Settings', 'appstr', 'bugreport',
-    'filter_hidden_settings', 'find_app',
+    'filter_hidden_settings', 'find_app', 'expand_router_string'
 )
 
 #: Format used to generate bug-report information.
@@ -413,3 +413,10 @@ def find_app(app, symbol_by_name=symbol_by_name, imp=import_from_cwd):
         else:
             return found
     return sym
+
+def expand_router_string(router):
+    router = symbol_by_name(router)
+    if hasattr(router, 'route_for_task'):
+        # need to instantiate pre 4.0 router classes
+        router = router()
+    return router

@@ -12,7 +12,7 @@ from kombu import Queue
 from celery.exceptions import QueueNotFound
 from celery.utils.collections import lpmerge
 from celery.utils.functional import maybe_evaluate, mlazy
-from celery.utils.imports import symbol_by_name
+from celery.app.utils import expand_router_string
 
 try:
     Pattern = re._pattern_type
@@ -109,14 +109,6 @@ class Router:
             # pre 4.0 router class
             return router.route_for_task(task, args, kwargs)
         return router(task, args, kwargs, options, task=task_type)
-
-
-def expand_router_string(router):
-    router = symbol_by_name(router)
-    if hasattr(router, 'route_for_task'):
-        # need to instantiate pre 4.0 router classes
-        router = router()
-    return router
 
 
 def prepare(routes):
