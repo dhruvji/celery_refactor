@@ -9,11 +9,10 @@ This prepares and performs the annotations in the
 from celery.utils.functional import firstmethod, mlazy
 from celery.utils.imports import instantiate
 
+__all__ = ('MapAnnotation', 'prepare')
+
 _first_match = firstmethod('annotate')
 _first_match_any = firstmethod('annotate_any')
-
-__all__ = ('MapAnnotation', 'prepare', 'resolve_all')
-
 
 class MapAnnotation(dict):
     """Annotation map: task_name => attributes."""
@@ -45,8 +44,3 @@ def prepare(annotations):
     elif not isinstance(annotations, (list, tuple)):
         annotations = (annotations,)
     return [expand_annotation(anno) for anno in annotations]
-
-
-def resolve_all(anno, task):
-    """Resolve all pending annotations."""
-    return (x for x in (_first_match(anno, task), _first_match_any(anno)) if x)
