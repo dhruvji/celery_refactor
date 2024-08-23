@@ -114,7 +114,7 @@ def detach(path, argv, logfile=None, pidfile=None, uid=None,
     # messages won't be lost after detaching stdout/err, but this means we need
     # to pre-format it rather than relying on `setup_logging_subsystem()` like
     # we can elsewhere.
-    logfile = node_format(logfile, hostname)
+    logfile = node_format(logfile, hostname, log=True)
     with detached(logfile, pidfile, uid, gid, umask, workdir, fake,
                   after_forkers=False):
         try:
@@ -348,8 +348,8 @@ def worker(ctx, hostname=None, pool_cls=None, app=None, uid=None, gid=None,
         worker = app.Worker(
             hostname=hostname, pool_cls=pool_cls, loglevel=loglevel,
             logfile=logfile,  # node format handled by celery.app.log.setup
-            pidfile=node_format(pidfile, hostname),
-            statedb=node_format(statedb, hostname),
+            pidfile=node_format(pidfile, hostname, log=True),
+            statedb=node_format(statedb, hostname, log=True),
             no_color=ctx.obj.no_color,
             quiet=ctx.obj.quiet,
             **kwargs)

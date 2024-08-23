@@ -88,7 +88,7 @@ class Logging:
         if self.already_setup:
             return
         if logfile and hostname:
-            logfile = node_format(logfile, hostname)
+            logfile = node_format(logfile, hostname, log=True)
         Logging._setup = True
         loglevel = mlevel(loglevel or self.loglevel)
         format = format or self.format

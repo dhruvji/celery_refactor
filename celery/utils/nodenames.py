@@ -80,10 +80,15 @@ def default_nodename(hostname: str) -> str:
     return nodename(name or NODENAME_DEFAULT, host or gethostname())
 
 
-def node_format(s: str, name: str, **extra: dict) -> str:
+def node_format(s: str, name: str, log: bool = False, **extra: dict) -> str:
     """Format worker node name (name@host.com)."""
     shortname, host = nodesplit(name)
+    
+    if log:
+        print(f"node_format called with: s={s}, name={name}, shortname={shortname}, host={host}, extra={extra}")
+
     return host_format(s, host, shortname or NODENAME_DEFAULT, p=name, **extra)
+
 
 
 def _fmt_process_index(prefix: str = '', default: str = '0') -> str:
