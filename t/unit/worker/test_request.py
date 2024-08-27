@@ -12,7 +12,7 @@ from kombu.utils.encoding import from_utf8, safe_repr, safe_str
 from kombu.utils.uuid import uuid
 
 from celery import states
-from celery.app.trace import (TraceInfo, build_tracer, fast_trace_task, mro_lookup, reset_worker_optimizations,
+from celery.app.trace import (TraceInfo, build_tracer, fast_trace_task, reset_worker_optimizations,
                               setup_worker_optimizations, trace_task, trace_task_ret)
 from celery.backends.base import BaseDictBackend
 from celery.exceptions import Ignore, InvalidTaskError, Reject, Retry, TaskRevokedError, Terminated, WorkerLostError
@@ -22,6 +22,7 @@ from celery.worker import strategy
 from celery.worker.request import Request, create_request_cls
 from celery.worker.request import logger as req_logger
 from celery.worker.state import revoked, revoked_stamps
+from celery.utils.objects import mro_lookup
 
 
 class RequestCase:
