@@ -77,7 +77,7 @@ def create_exception_cls(name, module, parent=None):
     return subclass_exception(name, parent, module)
 
 
-def ensure_serializable(items, encoder):
+def ensure_serialize(items, encoder):
     """Ensure items will serialize.
 
     For a given list of arbitrary objects, return the object
@@ -128,7 +128,7 @@ class UnpickleableExceptionWrapper(Exception):
     exc_args = None
 
     def __init__(self, exc_module, exc_cls_name, exc_args, text=None):
-        safe_exc_args = ensure_serializable(
+        safe_exc_args = ensure_serialize(
             exc_args, lambda v: pickle.loads(pickle.dumps(v))
         )
         self.exc_module = exc_module

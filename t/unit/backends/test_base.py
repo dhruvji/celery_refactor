@@ -311,7 +311,7 @@ class test_prepare_exception:
         self.b.serializer = 'json'
         x = self.b.prepare_exception(Exception(object))
         assert x == {
-            'exc_message': serialization.ensure_serializable(
+            'exc_message': serialization.ensure_serialize(
                 (object,), self.b.encode),
             'exc_type': Exception.__name__,
             'exc_module': Exception.__module__}

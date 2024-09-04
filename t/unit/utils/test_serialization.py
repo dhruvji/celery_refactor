@@ -7,7 +7,7 @@ from unittest.mock import Mock
 import pytest
 from kombu import Queue
 
-from celery.utils.serialization import (STRTOBOOL_DEFAULT_TABLE, UnpickleableExceptionWrapper, ensure_serializable,
+from celery.utils.serialization import (STRTOBOOL_DEFAULT_TABLE, UnpickleableExceptionWrapper, ensure_serialize,
                                         get_pickleable_etype, jsonify, strtobool)
 
 if sys.version_info >= (3, 9):
@@ -30,16 +30,16 @@ class test_AAPickle:
             sys.modules['celery.utils.serialization'] = prev
 
 
-class test_ensure_serializable:
+class test_ensure_serialize:
 
     def test_json_py3(self):
         expected = (1, "<class 'object'>")
-        actual = ensure_serializable([1, object], encoder=json.dumps)
+        actual = ensure_serialize([1, object], encoder=json.dumps)
         assert expected == actual
 
     def test_pickle(self):
         expected = (1, object)
-        actual = ensure_serializable(expected, encoder=pickle.dumps)
+        actual = ensure_serialize(expected, encoder=pickle.dumps)
         assert expected == actual
 
 

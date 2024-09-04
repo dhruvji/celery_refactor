@@ -29,7 +29,7 @@ from celery.result import GroupResult, ResultBase, ResultSet, allow_join_result,
 from celery.utils.collections import BufferMap
 from celery.utils.functional import LRUCache, arity_greater
 from celery.utils.log import get_logger
-from celery.utils.serialization import (create_exception_cls, ensure_serializable, get_pickleable_exception,
+from celery.utils.serialization import (create_exception_cls, ensure_serialize, get_pickleable_exception,
                                         get_pickled_exception, raise_with_context)
 from celery.utils.time import get_exponential_backoff_interval
 
@@ -329,7 +329,7 @@ class Backend:
             return get_pickleable_exception(exc)
         exctype = type(exc)
         return {'exc_type': getattr(exctype, '__qualname__', exctype.__name__),
-                'exc_message': ensure_serializable(exc.args, self.encode),
+                'exc_message': ensure_serialize(exc.args, self.encode),
                 'exc_module': exctype.__module__}
 
     def exception_to_python(self, exc):
